@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google - Modo de Economia de Energia</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      color: #e8eaed;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px;
+    }
+
+    .eco-badge {
+      background-color: #1a1a1a;
+      border: 1px solid #3c4043;
+      color: #8ab4f8;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .eco-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #34a853;
+      border-radius: 50%;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .google-logo {
+      font-size: 80px;
+      font-weight: bold;
+      letter-spacing: -4px;
+      margin-bottom: 25px;
+      user-select: none;
+    }
+
+    .g-blue { color: #8ab4f8; }
+    .g-red { color: #f28b82; }
+    .g-yellow { color: #fdd663; }
+    .g-green { color: #81c995; }
+
+    .search-box {
+      width: 90%;
+      max-width: 580px;
+      background-color: #1a1a1a;
+      border: 1px solid #3c4043;
+      border-radius: 24px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .search-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #e8eaed;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      background-color: #202124;
+      border: 1px solid #3c4043;
+      color: #e8eaed;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #303134;
+      border-color: #5f6368;
+    }
+
+    footer {
+      background-color: #171717;
+      border-top: 1px solid #3c4043;
+      padding: 12px 25px;
+      font-size: 14px;
+      color: #9aa0a6;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Estilo do Alerta / Pop-up */
+    #alert-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: #202124;
+      border: 1px solid #f28b82;
+      color: #e8eaed;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    #alert-box.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    #alert-box h3 {
+      color: #f28b82;
+      margin-bottom: 10px;
+    }
+
+    #alert-box button {
+      margin-top: 15px;
+      background-color: #8ab4f8;
+      color: #202124;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="eco-badge">
+      <span class="eco-dot"></span>
+      Modo de Economia de Energia Ativo (OLED)
+    </div>
+  </header>
+
+  <main>
+    <div class="google-logo">
+      <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+    </div>
+
+    <div class="search-box">
+      <span>🔍</span>
+      <input type="text" placeholder="Pesquise no Google ou digite uma URL" disabled>
+    </div>
+
+    <div class="buttons">
+      <button class="btn" id="btn-sair">Desativar Modo Escuro</button>
+      <button class="btn" id="btn-tentar">Voltar ao Google Normal</button>
+    </div>
+  </main>
+
+  <footer>
+    <span>Brasil</span>
+    <span>Economizando bateria para você não perder a aula...</span>
+  </footer>
+
+  <div id="alert-box">
+    <h3>Aviso do Sistema</h3>
+    <p>Já tá bom de aula, modo de economia de energia forçado!</p>
+    <button onclick="fecharAlerta()">Entendido</button>
+  </div>
+
+  <script>
+    const btnSair = document.getElementById('btn-sair');
+    const btnTentar = document.getElementById('btn-tentar');
+    const alertBox = document.getElementById('alert-box');
+
+    function mostrarMensagem() {
+      alertBox.classList.add('show');
+    }
+
+    function fecharAlerta() {
+      alertBox.classList.remove('show');
+    }
+
+    btnSair.addEventListener('click', mostrarMensagem);
+    btnTentar.addEventListener('click', mostrarMensagem);
+  </script>
+
+</body>
+</html>
